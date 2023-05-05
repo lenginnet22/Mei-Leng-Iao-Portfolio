@@ -1,0 +1,30 @@
+TPN_data <- read_excel("Stat 512/TPN data.xlsx")
+TPN_data=TPN_data
+death=as.factor(TPN_data$decreased)
+cancer=as.factor(TPN_data$cancer)
+albumin=TPN_data$`albumin level`
+BMI=TPN_data$BMI
+TPNalbumin.aov=aov(albumin~death,data=TPN_data)
+summary(TPNalbumin.aov)
+TPNBMI.aov=aov(BMI~death,data=TPN_data)
+summary(TPNBMI.aov)
+TPNBMIcancer.aov=aov(BMI~cancer,data=TPN_data)
+summary(TPNBMIcancer.aov)
+TPNalbumincancer.aov=aov(albumin~cancer,data=TPN_data)
+summary(TPNalbumincancer.aov)
+
+TPNinter<-aov(albumin~death*cancer)
+summary(TPNinter)
+TPNalbcancer=aov(albumin~death+cancer,data=TPN_data)
+summary(TPNalbcancer)
+TukeyHSD(TPNalbumin.aov)
+TukeyHSD(TPNBMI.aov)
+TukeyHSD(TPNalbcancer)
+# plot 
+boxplot(albumin~death,data=TPN_data)
+boxplot(BMI~death)
+plot(albumin~cancer)
+plot(BMI~cancer)
+
+
+cor(albumin,BMI) #negative correlation 
